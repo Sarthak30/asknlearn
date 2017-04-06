@@ -31,6 +31,7 @@ class EditProfileAdminForm(Form):
     name = StringField('Real name', validators=[Length(0, 64)])
     location = StringField('Location', validators=[Length(0, 64)])
     about_me = TextAreaField('About me')
+    teacher = BooleanField('Is Teacher')
     submit = SubmitField('Submit')
 
     def __init__(self, user, *args, **kwargs):
@@ -58,3 +59,25 @@ class PostForm(Form):
 class CommentForm(Form):
     body = StringField('Enter your comment', validators=[Required()])
     submit = SubmitField('Submit')
+
+
+class SearchUser(Form):
+    query = StringField('Enter the username', validators=[Required()])
+    submit = SubmitField('Search')
+
+
+class SearchPost(Form):
+    query = StringField('Enter the words to search', validators=[Required()])
+    submit = SubmitField('Search')
+
+
+class EmailForm(Form):
+    username = StringField('Enter the username', validators=[Required()])
+    body = PageDownField('Content of the email', validators=[Required()])
+    submit = SubmitField("Send the Mail")
+
+class TeacherProfileForm(Form):
+    publications = PageDownField('Enter the details of publications')
+    projects = PageDownField('Enter the details of project')
+    research = PageDownField('Enter the details of research')
+    submit = SubmitField('Update the data')

@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'sarthak14'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
@@ -12,7 +12,7 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     POOL_MAIL_SUBJECT_PREFIX = '[Knowledge POOL]'
     POOL_MAIL_SENDER = 'Admin <admin@knowledgePOOL.in>'
-    POOL_ADMIN = os.environ.get('POOL_ADMIN')
+    POOL_ADMIN = "sarthaknsit@gmail.com"
     F_POSTS_PER_PAGE = 20
     POOL_FOLLOWERS_PER_PAGE = 50
     POOL_COMMENTS_PER_PAGE = 30

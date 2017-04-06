@@ -3,13 +3,15 @@ from flask import render_template, redirect, url_for, abort, flash, request,\
 from flask_login import login_required, current_user
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, PostForm,\
-    CommentForm
+    CommentForm, SearchUser, SearchPost, EmailForm, TeacherProfileForm
 from .. import db
+from ..email import send_email
 from ..models import Permission, Role, User, Post, Comment
 from ..decorators import admin_required, permission_required
+# from twilio.rest import TwilioRestClient
 
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/home', methods=['GET', 'POST'])
 def index():
     form = PostForm()
     if current_user.can(Permission.WRITE_ARTICLES) and \
@@ -57,11 +59,25 @@ def edit_profile():
         db.session.add(current_user)
         flash('Your profile has been updated.')
         return redirect(url_for('.user', username=current_user.username))
+
     form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', form=form)
+    return render_template('edit_profile.html', form=form, user=current_user)
 
+@main.route('/edit-teacher-profile', methods=['GET', 'POST'])
+@login_required
+def edit_teacher_profie():
+    teacherForm = TeacherProfileForm()
+    if teacherForm.validate_on_submit():
+        current_user.publications = teacherForm.publications.data
+        current_user.projects = teacherForm.projects.data
+        current_user.research = teacherForm.research.data
+        return redirect(url_for('.user', username=current_user.username))
+    teacherForm.publications.data = current_user.publications
+    teacherForm.projects.data = current_user.projects
+    teacherForm.research.data = current_user.research
+    return render_template('edit_teacher_profile.html', teacherForm=teacherForm, user=current_user)
 
 @main.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -69,6 +85,7 @@ def edit_profile():
 def edit_profile_admin(id):
     user = User.query.get_or_404(id)
     form = EditProfileAdminForm(user=user)
+    teacherForm = TeacherProfileForm()
     if form.validate_on_submit():
         user.email = form.email.data
         user.username = form.username.data
@@ -77,6 +94,7 @@ def edit_profile_admin(id):
         user.name = form.name.data
         user.location = form.location.data
         user.about_me = form.about_me.data
+        user.teacher = form.teacher.data
         db.session.add(user)
         flash('The profile has been updated.')
         return redirect(url_for('.user', username=user.username))
@@ -87,7 +105,7 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
-    return render_template('edit_profile.html', form=form, user=user)
+    return render_template('edit_profile.html', form=form, teacherForm=teacherForm, user=user)
 
 
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
@@ -245,3 +263,83 @@ def moderate_disable(id):
     db.session.add(comment)
     return redirect(url_for('.moderate',
                             page=request.args.get('page', 1, type=int)))
+
+
+@main.route('/searchuser',  methods=['GET', 'POST'])
+@login_required
+def searchuser():
+    form = SearchUser()
+    if form.validate_on_submit():
+        username=form.query.data
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('Invalid user.')
+            return redirect(url_for('.index'))
+        return redirect(url_for('.user', username=username))
+    return render_template('searchuser.html', form=form)
+
+
+@main.route('/searchpost', methods=['GET', 'POST'])
+@login_required
+def searchpost():
+    form = SearchPost()
+    if form.validate_on_submit():
+        query = form.query.data
+        ans = []
+        p = Post.query.all()
+        for post in p:
+            if query.lower() in post.body.lower():
+                ans.append(post)
+        if(len(ans) == 0):
+            flash('No such word found.')
+            return redirect(url_for('.index'))
+        else:
+            return render_template('result.html', posts=ans, query=query)
+    return render_template('searchpost.html', form=form)
+
+
+@main.route('/teachers')
+@login_required
+def teacher():
+    u = User.query.all()
+    ans = []
+    for user in u:
+        if(user.teacher == True):
+            ans.append(user)
+            print user.username
+    if(len(ans)==0):
+        flash('No teachers exist')
+        return redirect(url_for('.index'))
+    else:
+        return render_template('teachers.html', user=ans)
+
+
+@main.route('/')
+def about():
+    return render_template('about.html')
+
+
+@main.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@main.route('/mail', methods=['GET', 'POST'])
+def mail():
+    form = EmailForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('Invalid user.')
+            return redirect(url_for('.index'))
+        else:
+            content = form.body.data
+            send_email(user.email, 'Mail from Knowledge Pool User',
+                       'mail/mail', content=content, user=current_user)
+            # client = TwilioRestClient("AC33a8405b3d5160645f9c44bc568aa810", "fac2e032e53a81a6d4cb093756d30c4b")
+            # client.messages.create(to="+919953983519", from_="+14249031965 ",
+            #            body="You have received a message from Knowledge pool.")
+            flash('Mail has been sent.')
+            return redirect(url_for('.index'))
+    return render_template('mail.html', form=form)

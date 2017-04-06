@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>KnowledgePool</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='landing-page.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>Knowledge Pool</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Page Content -->
+
+    <a  name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Ask all your Questions or share<br>Wisdom</h2>
+                    <p class="lead"><a href="{{ url_for('main.index') }}"> Knowledge Pool platform</a> for asking your questions and sharing your knowledge with others. Its fun!! Its cool!!</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="https://rawgit.com/BlackrockDigital/startbootstrap-landing-page/master/img/ipad.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">About SPM College</h2>
+                    <p class="lead">Check out the official website of Shyama Prasad Mukherjee College to know more. <a href="http://spm.du.ac.in/" target="_blank">Click here</a>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="http://spm.du.ac.in/tb-images/Upload/8df5b9c5-10b_big.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                   <h2 class="section-heading">Why Knowledge Pool?</h2>
+                    <p class="lead">The Internet has risen as fastest, affordable, convenient and reliable source of information transfer and communication over the past few years. An Internet-based web portal has emerged an essential role in information distribution among people because of the convenience and faster reach. The Knowledge Pool is an online web platform where both students and teachers can interact with each other outside the classrooms to share educational and academic information. They can post links to related videos, lectures, .PDF, .PPT etc files through their respective login accounts. The users can post their queries for help and share their opinions about any particular post.Knowledge Pool primarily focuses on narrowing the communication gap between teachers and students to improve education quality..</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="http://spm.du.ac.in/images/about-banner.jpg" alt=""> <img class="img-responsive" src="http://www.goldenrural.org/wp-content/uploads/2016/04/internet.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <footer>
+        <div class="container">
+       <!--     <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <p class="strong">Developers:</p>
+                    <img class="img-circle" src="static/images/ruchi1.jpg" width="200px" height="200px" alt="Ruchi Tanwar"><p>Ruchi Tanwar</p>
+                </div>
+                <div class="col-lg-3 col-sm-5">
+                <img class="img-circle" src="static/images/neha1.jpg" width="200px" height="200px" alt="Neha Goel"><p>Neha Goel</p>
+                </div>
+            </div>
+        </div> -->
+        <div class="well text-center">
+            <p><b><h2>Developers</h2></b></p>
+                <div class="col-md-6">
+                <img class="img_circle" src="static/images/ruchi1.jpg" alt="Ruchi Tanwar" width="200px" height="200px"><p>Ruchi Tanwar</p>
+                </div>
+                <div class="col-md-6">
+                <img class="img_circle" src="static/images/neha1.jpg" alt="Neha Goel" width="200px" height="200px"><p>Neha Goel</p>
+                </div>
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

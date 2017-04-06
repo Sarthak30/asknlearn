@@ -1,0 +1,14 @@
+Hi
+
+{{ user.username }} has has tried to contact you through the mailing service. Below is his/her message.
+
+----------------------------------------------------------------------
+
+{{ content }}
+
+----------------------------------------------------------------------
+
+Sincerely,
+The Knowledge Pool Team
+
+Note: replies to this email address are not monitored.

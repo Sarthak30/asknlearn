@@ -105,3 +105,16 @@ div.flask-pagedown-preview h3 {
 .table.followers tr {
     border-bottom: 1px solid #e0e0e0;
 }
+
+
+/*for hover, hope doesnot break any code*/
+.box{
+    display: none;
+    width: 100%;
+}
+
+a:hover + .box,.box:hover{
+    display: block;
+    position: relative;
+    z-index: 100;
+}

@@ -8,11 +8,8 @@
     <h1>Edit Your Profile</h1>
 </div>
 <div class="col-md-4">
-    {{ wtf.quick_form(form) }}
-</div>
-<div class="col-md-4">
   {% if user.teacher %}
-    <a href="{{ url_for('main.edit_teacher_profie') }}">Click here to edit teacher profile</a>
+    {{ wtf.quick_form(teacherForm) }}
   {% endif %}
 </div>
 {% endblock %}

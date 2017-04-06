@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %} Knowledge Pool - Teachers {% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+      <h1>Teachers</h1>
+  </div>
+  {% for user in user %}
+    <a href="{{ url_for('.user', username = user.username) }}">
+        <img class="img-rounded" src="{{ user.gravatar(size=32) }}">
+        {{ user.username }}
+    </a>
+    <br><br>
+  {% endfor %}
+{% endblock %}

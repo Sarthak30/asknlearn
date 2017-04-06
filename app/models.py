@@ -70,9 +70,13 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
+    teacher = db.Column(db.Boolean, default=False)
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
+    publications = db.Column(db.Text())
+    projects = db.Column(db.Text())
+    research = db.Column(db.Text())
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     followed = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
